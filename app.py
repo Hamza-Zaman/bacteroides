@@ -28,17 +28,34 @@ if uploaded_file is not None:
         return csv
 
     df = load_csv()
+    
+    st.title("Plotly and Streamlit ko mila k app bnana")
+    df1 = pd.read_csv('count_year.csv')
+    st.write(df1)
+    # st.write(df.head())
+    # st.write(df.columns)
+    # # summary stat
+    st.write(df1.describe())
+    # data management
+    year_option = df1['year'].unique().tolist()
+    year = st.selectbox("which year should we plot?", year_option, 0)
+    # df1 = df1[df1['year']== year]
+    # plotting
+    fig = px.scatter(df1, x= 'year', y ='num_of_pubs', size='num_of_pubs', color='num_of_pubs', hover_name='year',
+                size_max=40,range_y=[5,300], range_x=[1990,2024],
+                animation_frame='year', animation_group='year')
+    fig1 = px.bar(df1, x= 'year', y ='num_of_pubs', color='year', hover_name='year',
+                range_y=[5,10], range_x=[1990,2024],
+                animation_frame='year', animation_group='year')
+    fig.update_layout(width=800, height=600)
+    st.write(fig)
+    st.write(fig1)     
+
+
+    #other profile reporting
     pr = ProfileReport(df, explorative=True)
     st.header('**Input DataFrame summary**')
     st.write(df.describe())
-    st.header('**Line Chart showing articles per year**')
-
-    # #multiselect
-    # year = df['year'].unique()
-    # year_selected = st.multiselect("Select year of publication", year)
-    # mask_year = df['year'].isin(year_selected)
-    # df = df[year_selected]
-
     st.write(px.histogram(df, x='year',color="year")) 
     st.header('**Input DataFrame**')
     st.write(df)
