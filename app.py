@@ -17,7 +17,7 @@ st.markdown('''
 with st.sidebar.header('upload your cvs data'):
     uploaded_file = st.sidebar.file_uploader("Upload your input CSV file", type=["csv"])
     st.sidebar.markdown("""
-[Example CSV input file](https://raw.githubusercontent.com/dataprofessor/data/master/delaney_solubility_with_descriptors.csv)
+[Example CSV input file](https://github.com/AammarTufail/bacteroides/blob/main/data.csv)
 """)
 # prepare plotting
 st.title("Data f Publication")
